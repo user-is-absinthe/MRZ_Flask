@@ -1,4 +1,5 @@
-import load_from_file
+# import load_from_file
+from methods import load_from_file
 
 import numpy as np
 
@@ -53,6 +54,10 @@ def nsko(path=None):
     return answered
 
 
+def test_func(path):
+    return nsko(path)
+
+
 if __name__ == '__main__':
 
     # array_of_X, array_of_classes = [
@@ -67,7 +72,7 @@ if __name__ == '__main__':
     #     1
     # ]
 
-    my_path = '/Users/owl/Pycharm/PycharmProjects/MRZ/NSKO/input_file.txt'
+    my_path = '..\data\\nsko\input_file.txt'
     # array_of_X, array_of_classes = load_from_file.load_for_nsko(path)
     #
     # to_test = additional_constructions(ar_x=array_of_X, ar_cl=array_of_classes)

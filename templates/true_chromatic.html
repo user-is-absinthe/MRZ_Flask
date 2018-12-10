@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Ввод данных:</h1>
+    <form action="" method="post" novalidate>
+        <p>
+            <h3>Введите размерность матрицы: {{ form.matrix_size(size=2) }} </h3>
+        </p>
+        <p>
+            <h3>Сгенерировать автоматически?{{ form.generate_matrix }}</h3>
+        </p>
+        <p>{{ form.do_this }}</p>
+    </form>
+{% endblock %}
+</html>

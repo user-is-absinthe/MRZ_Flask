@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% extends "base.html" %}
+{% block content %}
+    <h1>Доступные алгоритмы:</h1>
+    <ol>
+    {% for link, alg in algs %}
+        <li><a href={{ link }}> {{ alg }}</a></li>
+    {% endfor %}
+    </ol>
+{% endblock %}
+</html>
