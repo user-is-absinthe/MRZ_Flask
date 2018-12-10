@@ -1,14 +1,16 @@
 import sys
 import random
+import os
 
-import read_from_csv as csv
+from methods import func_read_from_csv as csv
 
 import networkx
 import matplotlib.pyplot
+import numpy
 
 
 def main():
-    generate_matrix(64, '../data/true_chromatic/temp_matrix.txt')
+    generate_matrix_in(64, '../data/true_chromatic/temp_matrix.txt')
 
     matrix_str = csv.open_matrix('../data/true_chromatic/temp_matrix.txt')
 
@@ -33,6 +35,10 @@ def main():
     pass
 
 
+def get_path():
+    return os.path.dirname(__file__)
+
+
 def true_chromatic(path):
     matrix_str = csv.open_matrix(path)
 
@@ -50,10 +56,17 @@ def true_chromatic(path):
     return chromatic_number
 
 
-def generate_matrix(size=2, path='data/true_chromatic/temp_matrix.txt'):
+def my_choice():
+    # numpy.random.
+    number = numpy.random.choice([0, 1], 1, p=[0.85, 0.15])
+    return number[0]
+
+
+def generate_matrix_in(size=2, path='data/true_chromatic/temp_matrix.txt'):
     with open(path, 'w') as file:
         for number_line in range(size):
-            line = [str(random.choice([0, 1])) for i in range(size)]
+            # line = [str(random.choice([0, 1])) for i in range(size)]
+            line = [str(my_choice()) for i in range(size)]
             line_w = ''.join(line) + '\n'
             file.write(line_w)
     pass
@@ -92,6 +105,7 @@ def draw_graph(graph, path_to_save=None, colors=None):
         matplotlib.pyplot.savefig(path_to_save)
     else:
         matplotlib.pyplot.show()
+    matplotlib.pyplot.clf()
     pass
 
 

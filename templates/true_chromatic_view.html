@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Отображение данных:</h1>
+    <h2 style="color:red">Внимание! В браузере может быть включено кеширование изображений.</h2>
+    <h2 style="color:red">В таком случае каждый новый запуск нужно производить в режиме инкогнито.</h2>
+    <ol>
+    {% for line in file %}
+        <li> {{ line }}</li>
+    {% endfor %}
+    </ol>
+    <h3>Оригинальный граф:</h3>
+    <img src="{{ path_to_mono_graph }}" alt="Начальный граф.">
+    <h4>Хроматическое число = {{ chromatic_number }}.</h4>
+    <h3>Красивый граф:</h3>
+    <img src="{{ path_to_many_graph }}" alt="Граф после перекраски.">
+{% endblock %}
+</html>

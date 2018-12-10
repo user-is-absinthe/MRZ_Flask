@@ -1,5 +1,5 @@
 # import load_from_file
-from methods import load_from_file
+from methods import func_load_from_file
 
 import numpy as np
 
@@ -47,7 +47,7 @@ def nsko(path=None):
     if path is None:
         return 0
 
-    array_of_X, array_of_classes = load_from_file.load_for_nsko(path)
+    array_of_X, array_of_classes = func_load_from_file.load_for_nsko(path)
 
     answered = additional_constructions(ar_x=array_of_X, ar_cl=array_of_classes)
 
@@ -55,7 +55,7 @@ def nsko(path=None):
 
 
 def test_func(path):
-    return nsko(path)
+    return path
 
 
 if __name__ == '__main__':
