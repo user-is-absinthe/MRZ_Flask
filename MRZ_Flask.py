@@ -14,6 +14,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 app.debug = True
 
+CHROMATIC_PATH_TO_MATRIX = ''
+
 
 # @app.route('/')
 # def hello_world():
@@ -34,8 +36,18 @@ def main_page():
 
 @app.route('/true_chromatic', methods=['GET', 'POST'])
 def true_chromatic():
+    global CHROMATIC_PATH_TO_MATRIX
     form = MatrixSize()
     matrix_size_i = -98563
+    # ввод из файла
+    if form.path_to_another_matrix.data is not None:
+        CHROMATIC_PATH_TO_MATRIX = form.path_to_another_matrix.data
+        to_check = csv.open_alien_matrix(CHROMATIC_PATH_TO_MATRIX)
+        if to_check != 'bad':
+            return redirect('/true_chromatic_view')
+        else:
+            flash('Проверте файл с данными и/или путь к нему.')
+
     try:
         # print(form.matrix_size.data)
         if form.matrix_size.data is not None:
@@ -49,6 +61,8 @@ def true_chromatic():
         # print(matrix_size_i)
         flash('Количество вершин графа: {}.'.format(matrix_size_i))
         # print(form.generate_matrix.data)
+
+        # авто генерация
         if form.generate_matrix.data:
             path = func_true_chromatic.get_path()
             func_true_chromatic.generate_matrix_in(
@@ -58,17 +72,32 @@ def true_chromatic():
             )
             return redirect('/true_chromatic_view')
 
+        # ввод ручками
+        if form.handle_matrix.data:
+            return redirect('/true_chromatic_handle')
+
     elif matrix_size_i != -98563:
         flash('Колчество вершин должно принадлежать диапазону (0, 65).')
 
     return render_template('true_chromatic.html', title='Раскраска графа.', form=form)
 
 
+@app.route('/true_chromatic_handle')
+def true_chromatic_handle():
+    return 'awdawdaw'
+
+
 @app.route('/true_chromatic_view')
 def true_chromatic_view():
+    global CHROMATIC_PATH_TO_MATRIX
     # graph = None
     path = func_true_chromatic.get_path() + '/../static/true_chromatic/'
-    path_to_matrix = path + 'temp_matrix.txt'
+    if CHROMATIC_PATH_TO_MATRIX != '':
+        path_to_matrix = CHROMATIC_PATH_TO_MATRIX
+        CHROMATIC_PATH_TO_MATRIX = ''
+    else:
+
+        path_to_matrix = path + 'temp_matrix.txt'
     matrix_str = csv.open_matrix(path_to_matrix)
     graph = func_true_chromatic.create_graph(matrix_str)
     path_to_mono_graph = path + 'monochromgraph.png'

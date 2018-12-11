@@ -2,14 +2,16 @@ import sys
 
 
 def main():
-    path = 'data.txt'
-    my_matrix = open_matrix(path)
-    print(my_matrix)
-    if not good_matrix(my_matrix):
-        sys.exit(1)
-    else:
-        print('Matrix is good.')
-    pass
+    # path = 'data.txt'
+    path = 'C:\\Users\Worker\Pycharm\Pycharm_project\MRZ_Flask\static\\true_chromatic\\temp_matrix.txt'
+    # my_matrix = open_matrix(path)
+    # print(my_matrix)
+    # if not good_matrix(my_matrix):
+    #     sys.exit(1)
+    # else:
+    #     print('Matrix is good.')
+    # pass
+    print(open_alien_matrix(path=path))
 
 
 def good_matrix(matrix_str):
@@ -26,10 +28,26 @@ def good_matrix(matrix_str):
 
 
 def open_matrix(path):
-    with open(path, 'r') as file:
-        lines = file.readlines()
-        lines = [i.strip() for i in lines]
+    try:
+        with open(path, 'r') as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        return ['1', '12']
+    lines = [i.strip() for i in lines]
+    while True:
+        try:
+            lines.remove('')
+        except ValueError:
+            break
     return lines
+
+
+def open_alien_matrix(path):
+    matrix_str = open_matrix(path=path)
+    if good_matrix(matrix_str=matrix_str):
+        return matrix_str
+    else:
+        return 'bad'
 
 
 if __name__ == '__main__':

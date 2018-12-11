@@ -12,6 +12,14 @@
         <p>
             <h3>Сгенерировать автоматически?{{ form.generate_matrix }}</h3>
         </p>
+        <p>
+            <h3>Ввести вручную?{{ form.handle_matrix  }}</h3>
+        </p>
+        <p>
+            <h3>Ввести из файла?</h3>
+        <br>
+            {{ form.path_to_another_matrix }}
+        </p>
         <p>{{ form.do_this }}</p>
     </form>
 {% endblock %}
