@@ -9,4 +9,4 @@ class MatrixSize(FlaskForm):
     handle_matrix = BooleanField('Ввести вручную?')
     handle_matrix_entered = StringField('Ведите матрицу смежности.')
     path_to_another_matrix = StringField('Введите абсолютный путь до файла с матрицей.')
-    do_this = SubmitField('OK!')
+    do_this = SubmitField('Results!')

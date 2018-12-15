@@ -88,11 +88,11 @@ def find_colors(graph):
 
 def create_graph(matrix_str):
     graph = networkx.Graph()
-    graph.add_nodes_from([i for i in range(len(matrix_str))])
+    graph.add_nodes_from([i + 1 for i in range(len(matrix_str))])
     for index_line in range(len(matrix_str)):
         for index_number in range(len(matrix_str[index_line])):
             if matrix_str[index_line][index_number] == '1':
-                graph.add_edge(index_line, index_number)
+                graph.add_edge(index_line + 1, index_number + 1)
     return graph
 
 
@@ -103,7 +103,7 @@ def draw_graph(graph, path_to_save=None, colors=None):
     else:
         networkx.draw(graph, pos=position, node_color=colors, with_labels=True)
     if path_to_save is not None:
-        matplotlib.pyplot.savefig(path_to_save)
+        matplotlib.pyplot.savefig(path_to_save, transparent=True)
     else:
         matplotlib.pyplot.show()
     matplotlib.pyplot.clf()

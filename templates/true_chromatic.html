@@ -6,25 +6,50 @@
 {% block content %}
     <h1>Ввод данных:</h1>
     <form action="" method="post" novalidate>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse_auto" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Сгенерировать автоматически?
+        </a>
+{#        <p>#}
+{#            <h3>Сгенерировать автоматически?{{ form.generate_matrix }}</h3>#}
+{#        </p>#}
+        <div class="collapse" id="collapse_auto">
         <p>
             <h3>Введите размерность матрицы: {{ form.matrix_size(size=2) }} </h3>
         </p>
+        </div>
+        <br>
+
+        <br>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse_handle" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Ввести вручную?
+        </a>
+{#        <p>#}
+{#            <h3>Ввести вручную?{{ form.handle_matrix  }}</h3>#}
+{#        </p>#}
+        <div class="collapse" id="collapse_handle">
         <p>
-            <h3>Сгенерировать автоматически?{{ form.generate_matrix }}</h3>
-        </p>
-        <p>
-            <h3>Ввести вручную?{{ form.handle_matrix  }}</h3>
-        </p>
-        <p>
+            <br>
             <textarea {{ form.handle_matrix_entered }}>
             </textarea>
 
         </p>
-        <p>
-            <h3>Ввести из файла?</h3>
+        </div>
         <br>
+
+        <br>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse_from_file" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Ввести из файла?
+        </a>
+
+{#        <h3>Ввести из файла?</h3>#}
+
+        <div class="collapse" id="collapse_from_file">
+            <br>
             {{ form.path_to_another_matrix }}
-        </p>
+        </div>
+        <br>
+
+        <br>
         <p>{{ form.do_this }}</p>
     </form>
 {% endblock %}
