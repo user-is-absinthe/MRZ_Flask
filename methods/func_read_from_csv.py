@@ -43,11 +43,24 @@ def open_matrix(path):
 
 
 def open_alien_matrix(path):
+    first_test = False
     matrix_str = open_matrix(path=path)
     if good_matrix(matrix_str=matrix_str):
-        return matrix_str
+        # return matrix_str
+        first_test = True
     else:
         return 'bad'
+
+    if first_test:
+        for line in matrix_str:
+            for symbol in line:
+                if symbol == '0' or symbol == '1':
+                    # all ok
+                    pass
+                else:
+                    return 'bad'
+
+    return matrix_str
 
 
 if __name__ == '__main__':

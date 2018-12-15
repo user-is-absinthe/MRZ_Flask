@@ -97,10 +97,11 @@ def create_graph(matrix_str):
 
 
 def draw_graph(graph, path_to_save=None, colors=None):
+    position = networkx.shell_layout(graph)
     if colors is None:
-        networkx.draw(graph, with_labels=True)
+        networkx.draw(graph, pos=position, with_labels=True)
     else:
-        networkx.draw(graph, node_color=colors, with_labels=True)
+        networkx.draw(graph, pos=position, node_color=colors, with_labels=True)
     if path_to_save is not None:
         matplotlib.pyplot.savefig(path_to_save)
     else:
