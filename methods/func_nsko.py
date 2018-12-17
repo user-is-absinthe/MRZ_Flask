@@ -72,9 +72,9 @@ if __name__ == '__main__':
     #     1
     # ]
 
-    my_path = '..\data\\nsko\input_file.txt'
+    test_path = '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/nsko/input_file.txt'
     # array_of_X, array_of_classes = load_from_file.load_for_nsko(path)
     #
     # to_test = additional_constructions(ar_x=array_of_X, ar_cl=array_of_classes)
-    to_test = nsko(my_path)
+    to_test = nsko(test_path)
     print(to_test)

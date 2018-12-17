@@ -7,17 +7,15 @@ from methods import func_nsko
 import func_find_path
 
 import page_true_chromatic
+import page_nsko
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 app.debug = True
+
 app.register_blueprint(page_true_chromatic.true_chromatic_page)
-
-
-temp_path = func_find_path.get_path()
-if not os.path.exists(temp_path + '/static/true_chromatic/img'):
-    os.mkdir(temp_path + '/static/true_chromatic/img')
+app.register_blueprint(page_nsko.nsko_page)
 
 
 @app.route('/')
@@ -25,18 +23,13 @@ if not os.path.exists(temp_path + '/static/true_chromatic/img'):
 def main_page():
     alg = {
         'Раскраска графа.': '/true_chromatic',
+        'ТЕСТ_НСКО.': '/nsko_test',
     }
     return render_template(
         'algoritms.html',
         title='Заглавная страница.',
         algs=[(value, key) for key, value in alg.items()]
     )
-
-
-@app.route('/nsko')
-def method_nsko():
-    out = func_nsko.test_func('data\\nsko\input_file.txt')
-    return str(out)
 
 
 if __name__ == '__main__':

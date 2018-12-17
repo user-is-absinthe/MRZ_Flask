@@ -6,7 +6,6 @@ from flask import render_template
 from flask import redirect
 from flask import Blueprint
 
-# from forms import TrueChromatic_form
 import forms
 from methods import func_true_chromatic
 from methods import func_read_from_csv as csv
@@ -24,10 +23,15 @@ CHROMATIC_PATH_TO_MATRIX = ''
 CHROMATIC_HANDLE_MATRIX = False
 
 
+temp_path = func_find_path.get_path()
+if not os.path.exists(temp_path + '/static/true_chromatic/img'):
+    os.mkdir(temp_path + '/static/true_chromatic/img')
+
+
 @true_chromatic_page.route('/true_chromatic', methods=['GET', 'POST'])
 def true_chromatic():
     global CHROMATIC_PATH_TO_MATRIX, CHROMATIC_HANDLE_MATRIX
-    form = forms.TrueChromatic_form()
+    form = forms.TrueChromaticForm()
     matrix_size_i = -98563
     # ввод из файла
     if form.path_to_another_matrix.data is not None and not form.path_to_another_matrix.data == '':
@@ -56,8 +60,6 @@ def true_chromatic():
             # print(form.generate_matrix.data)
 
             # авто генерация
-            # if form.generate_matrix.data:
-            # path = func_true_chromatic.get_path()
             path = func_find_path.get_path()
             func_true_chromatic.generate_matrix_in(
                 size=matrix_size_i,
