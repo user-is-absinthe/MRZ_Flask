@@ -7,7 +7,7 @@ from flask import render_template
 from flask import redirect
 
 from methods import func_nsko
-from form_true_chromatic import MatrixSize
+from forms import TrueChromatic_form
 from methods import func_true_chromatic
 from methods import func_read_from_csv as csv
 import func_find_path
@@ -42,7 +42,7 @@ def main_page():
 @app.route('/true_chromatic', methods=['GET', 'POST'])
 def true_chromatic():
     global CHROMATIC_PATH_TO_MATRIX, CHROMATIC_HANDLE_MATRIX
-    form = MatrixSize()
+    form = TrueChromatic_form()
     matrix_size_i = -98563
     # ввод из файла
     if form.path_to_another_matrix.data is not None and not form.path_to_another_matrix.data == '':
