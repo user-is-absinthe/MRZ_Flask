@@ -24,6 +24,7 @@ def main_page():
     alg = {
         'Раскраска графа.': '/true_chromatic',
         'ТЕСТ_НСКО.': '/nsko_test',
+        'НСКО.': '/nsko',
     }
     return render_template(
         'algoritms.html',

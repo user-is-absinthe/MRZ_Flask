@@ -19,7 +19,7 @@ def test_f():
     return str(test_answ)
 
 
-@nsko_page.route('/nsko')
+@nsko_page.route('/nsko', methods=['GET', 'POST'])
 def nsko_entered():
     form = forms.NskoForm()
-    pass
+    return flask.
