@@ -1,5 +1,4 @@
 import os
-import time
 
 from flask import Flask
 from flask import render_template
@@ -14,9 +13,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 app.debug = True
 app.register_blueprint(page_true_chromatic.true_chromatic_page)
-
-CHROMATIC_PATH_TO_MATRIX = ''
-CHROMATIC_HANDLE_MATRIX = False
 
 
 temp_path = func_find_path.get_path()

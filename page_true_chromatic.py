@@ -6,9 +6,11 @@ from flask import render_template
 from flask import redirect
 from flask import Blueprint
 
-from forms import TrueChromatic_form
+# from forms import TrueChromatic_form
+import forms
 from methods import func_true_chromatic
 from methods import func_read_from_csv as csv
+import func_find_path
 
 
 true_chromatic_page = Blueprint(
@@ -18,10 +20,14 @@ true_chromatic_page = Blueprint(
 )
 
 
+CHROMATIC_PATH_TO_MATRIX = ''
+CHROMATIC_HANDLE_MATRIX = False
+
+
 @true_chromatic_page.route('/true_chromatic', methods=['GET', 'POST'])
 def true_chromatic():
     global CHROMATIC_PATH_TO_MATRIX, CHROMATIC_HANDLE_MATRIX
-    form = TrueChromatic_form()
+    form = forms.TrueChromatic_form()
     matrix_size_i = -98563
     # ввод из файла
     if form.path_to_another_matrix.data is not None and not form.path_to_another_matrix.data == '':
@@ -51,11 +57,12 @@ def true_chromatic():
 
             # авто генерация
             # if form.generate_matrix.data:
-            path = func_true_chromatic.get_path()
+            # path = func_true_chromatic.get_path()
+            path = func_find_path.get_path()
             func_true_chromatic.generate_matrix_in(
                 size=matrix_size_i,
                 # path='data/true_chromatic/temp_matrix.txt'
-                path=path + '/../static/true_chromatic/temp_matrix.txt'
+                path=path + '/static/true_chromatic/temp_matrix.txt'
             )
             return redirect('/true_chromatic_view')
 
@@ -67,8 +74,8 @@ def true_chromatic():
     # if form.handle_matrix.data:
     if form.handle_matrix_entered.data is not None and not form.handle_matrix_entered.data == '':
         to_write = form.handle_matrix_entered.data
-        path = func_true_chromatic.get_path()
-        save_matrix = path + '/../static/true_chromatic/temp_matrix_hand.txt'
+        path = func_find_path.get_path()
+        save_matrix = path + '/static/true_chromatic/temp_matrix_hand.txt'
         with open(save_matrix, 'w') as file:
             file.write(to_write)
 
@@ -87,7 +94,7 @@ def true_chromatic_view():
     global CHROMATIC_PATH_TO_MATRIX, CHROMATIC_HANDLE_MATRIX
     # graph = None
     # print('wa,,,', CHROMATIC_PATH_TO_MATRIX)
-    path = func_true_chromatic.get_path() + '/../static/true_chromatic/'
+    path = func_find_path.get_path() + '/static/true_chromatic/'
     # if CHROMATIC_PATH_TO_MATRIX != '':
     #     path_to_matrix = CHROMATIC_PATH_TO_MATRIX
     #     CHROMATIC_PATH_TO_MATRIX = ''
