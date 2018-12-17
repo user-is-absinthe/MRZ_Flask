@@ -1,3 +1,6 @@
+import os
+
+
 def fix_path(wrecked_path):
     path_list = wrecked_path.split('/')
     points_index = path_list.index('..')
@@ -7,6 +10,10 @@ def fix_path(wrecked_path):
     for i in path_list:
         return_str += i + '/'
     return return_str[:len(return_str) - 1]
+
+
+def get_path():
+    return os.path.dirname(__file__)
 
 
 if __name__ == '__main__':

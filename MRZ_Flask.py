@@ -10,7 +10,8 @@ from methods import func_nsko
 from form_true_chromatic import MatrixSize
 from methods import func_true_chromatic
 from methods import func_read_from_csv as csv
-# from methods import func_find_path
+import func_find_path
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
@@ -20,21 +21,22 @@ CHROMATIC_PATH_TO_MATRIX = ''
 CHROMATIC_HANDLE_MATRIX = False
 
 
-# @app.route('/')
-# def hello_world():
-#     return 'Hello World!'
+temp_path = func_find_path.get_path()
+if not os.path.exists(temp_path + '/static/true_chromatic/img'):
+    os.mkdir(temp_path + '/static/true_chromatic/img')
 
 
 @app.route('/')
 @app.route('/algoritms')
 def main_page():
-    algoritms = [
-        'Раскраска графа.',
-    ]
-    links = [
-        '/true_chromatic',
-    ]
-    return render_template('algoritms.html', title='Заглавная страница.', algs=zip(links, algoritms))
+    alg = {
+        'Раскраска графа.': '/true_chromatic',
+    }
+    return render_template(
+        'algoritms.html',
+        title='Заглавная страница.',
+        algs=[(value, key) for key, value in alg.items()]
+    )
 
 
 @app.route('/true_chromatic', methods=['GET', 'POST'])
