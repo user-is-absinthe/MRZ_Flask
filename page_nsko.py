@@ -22,4 +22,9 @@ def test_f():
 @nsko_page.route('/nsko', methods=['GET', 'POST'])
 def nsko_entered():
     form = forms.NskoForm()
-    return flask.
+    return flask.render_template(
+        'nsko.html',
+        title='Алгоритм НСКО.',
+        path_to_example='static/nsko/img/example_handle_entered.png',
+        form=form,
+    )

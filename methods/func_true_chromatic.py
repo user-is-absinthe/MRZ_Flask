@@ -10,9 +10,9 @@ import numpy
 
 
 def main():
-    generate_matrix_in(64, '../data/true_chromatic/temp_matrix.txt')
+    generate_matrix_in(4, '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/true_chromatic/temp_matrix.txt')
 
-    matrix_str = csv.open_matrix('../data/true_chromatic/temp_matrix.txt')
+    matrix_str = csv.open_matrix('/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/true_chromatic/temp_matrix.txt')
 
     if not csv.good_matrix(matrix_str):
         print('Bad matrix.')

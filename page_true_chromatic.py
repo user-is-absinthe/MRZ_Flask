@@ -88,7 +88,12 @@ def true_chromatic():
         else:
             flash('Проверте вводимые данные.')
 
-    return render_template('true_chromatic.html', title='Раскраска графа.', form=form)
+    return render_template(
+        'true_chromatic.html',
+        title='Раскраска графа.',
+        path_to_examle='static/true_chromatic/img/example_handle_entered.png',
+        form=form
+    )
 
 
 @true_chromatic_page.route('/true_chromatic_view')
