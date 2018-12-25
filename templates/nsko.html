@@ -9,13 +9,12 @@
         <a class="btn btn-primary" data-toggle="collapse" href="#collapse_auto" role="button" aria-expanded="false" aria-controls="collapseExample">
             Сгенерировать автоматически?
         </a>
-        <div class="collapse" id="collapse_auto">
-            <br>
+        <div class="collapse" id="collapse_auto"><br>
         <p>
-            Введите количество классов: {{ form.count_of_classes(size=3) }}
+            Введите количество векторов: {{ form.count_of_vectors(size=3) }}
         </p>
         <p>
-            Введите количество векторов в классе: {{ form.count_of_vectors(size=3) }}
+            Введите длину векторов: {{ form.len_vectors(size=3) }}
         </p>
         </div>
         <br>
@@ -27,13 +26,11 @@
         <div class="collapse" id="collapse_handle">
         <p>
             <br>
-            <p>Введите структуру, аналогичеую структуре на картинке:</p>
+            <p>Введите структуру, аналогичную структуре на картинке:</p>
             <img src="{{ path_to_example }}" alt="Example.">
             <br><br>
             <textarea {{ form.handle_entered }}>
             </textarea>
-
-        </p>
         </div>
         <br>
 

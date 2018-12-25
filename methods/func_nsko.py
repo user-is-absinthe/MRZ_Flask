@@ -53,28 +53,38 @@ def nsko(path_to_data=None, path_to_img=None):
     answered = additional_constructions(ar_x=array_of_x, ar_cl=array_of_classes)
 
     if path_to_img is not None:
-        if len(array_of_x[0]) == 3:  # or len(array_of_x) == 3:
-            # figure = pyplot.figure()
-            temp = list()
-            for x in array_of_x:
-                # pyplot.plot(x[0], x[1], style='r-')
-                pyplot.scatter(x[0], x[1])
-                temp.append(x[0])
-
-            max_x = max(temp)
-            min_x = min(temp)
-            list_x = [i for i in np.arange(min_x, max_x, 0.1)]
-            list_y = [answered[2]*x**2 + answered[1]*x + answered[0] for x in list_x]
-
-            pyplot.plot(list_x, list_y)
-
-        elif len(array_of_x[0]) == 4:
-            pass
-
-        pyplot.show()
-        pass
-
+        plot_nsko(path_to_img, array_of_x, answered)
     return answered
+
+
+def plot_nsko(path, array_of_x, answered):
+    if len(array_of_x[0]) == 3:  # or len(array_of_x) == 3:
+        # figure = pyplot.figure()
+        temp = list()
+        for x_y_class in array_of_x:
+            # pyplot.plot(x[0], x[1], style='r-')
+            if x_y_class[2] == -1:
+                x = -1 * x_y_class[0]
+                y = -1 * x_y_class[1]
+                color = 'blue'
+            else:
+                x = x_y_class[0]
+                y = x_y_class[1]
+                color = 'red'
+            pyplot.scatter(x, y, c=color)
+            temp.append(x)
+
+        max_x = max(temp)
+        min_x = min(temp)
+        list_x = [i for i in np.arange(min_x, max_x, 0.1)]
+        list_y = [1 / answered[1] * (-1 * answered[2] - answered[0] * x) for x in list_x]
+
+        pyplot.plot(list_x, list_y)
+        pyplot.savefig(path, transparent=True)
+        pyplot.clf()
+        return 0
+    else:
+        return 1
 
 
 def my_split(arr, n):
@@ -82,33 +92,30 @@ def my_split(arr, n):
     return [arr[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n)]
 
 
-def generator(amount_of_vectors=2, len_vectors=2, amount_of_classes=2, path=None):
-    if amount_of_classes > amount_of_vectors:
-        return 1
-
-    vectors = [list(np.random.rand(len_vectors)) for i in range(amount_of_vectors)]
-
-    temp = [i for i in range(amount_of_vectors)]
-    classes = my_split(temp, amount_of_classes)
-    for index_class, m_class in enumerate(classes):
-        for index in range(len(m_class)):
-            m_class[index] = index_class
-
-    list_of_classes = list()
-    for temp_class in classes:
-        list_of_classes += temp_class
-
+def generator(len_vectors=2, amount_vectors=4, path=None):
+    vectors = [list(np.random.rand(len_vectors)) for i in range(amount_vectors)]
     for index, vector in enumerate(vectors):
-        vector.append(list_of_classes[index])
+        if index < amount_vectors / 2:
+            vector.append(1)
+        else:
+            vector.append(1)
+            for index_n, number in enumerate(vector):
+                vector[index_n] = -1 * number
 
-    if path is None:
-        return vectors
-    else:
-        with open(path, 'w') as file:
-            for vector in vectors:
-                for number in vector:
-                    file.write(str(number) + ' ')
-                file.write('\n')
+    if path is not None:
+        save_data(path, vectors)
+
+    return vectors
+
+
+def save_data(path, data):
+    with open(path, 'w') as file:
+        for line in data:
+            to_write = str(line).replace('[', '')
+            to_write = to_write.replace(']', '')
+            file.write(to_write + '\n')
+    return 0
+    pass
 
 
 if __name__ == '__main__':
@@ -132,11 +139,13 @@ if __name__ == '__main__':
     # to_test = nsko(test_path)
     # print(to_test)
 
-    path = '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/nsko/test.txt'
-    generator(
-        amount_of_vectors=4,
-        len_vectors=2,
-        amount_of_classes=2,
-        path=path
-    )
-    print(nsko(path_to_data=path, path_to_img=1))
+    # path = '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/nsko/test.txt'
+    path_nnn = '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/nsko/input_file.txt'
+    # generator(
+    #     amount_of_vectors=4,
+    #     len_vectors=2,
+    #     amount_of_classes=2,
+    #     path=path
+    # )
+    # print(nsko(path_to_data=path, path_to_img=1))
+    print(generator())

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Отображение данных:</h1>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapse_matrix" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Вектора.
+    </a>
+    <div class="collapse" id="collapse_matrix">
+    <br>
+    <div class="container">
+        <table class="table">
+            <thead class="light">
+                <tr>
+                    {% for index_1 in range(column) %}
+                    <th scope="col">
+                        {{ index_1 + 1 }}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for index_1 in range(lines) %}
+                <tr>
+                    {% for index_2 in matrix[index_1] %}
+                    <td> {{ index_2 }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div><br>
+    <br>
+
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapse_answered" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Коэффициенты разделяющей прямой/плоскости/гиперплоскости.
+    </a>
+    <div class="collapse" id="collapse_answered">
+    <br>
+        {{ answered }}
+    </div><br><br>
+
+    <h4><a href="nsko">Назад.</a> </h4>
+{% endblock %}
+</html>

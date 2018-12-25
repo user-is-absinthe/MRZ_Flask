@@ -23,7 +23,7 @@ app.register_blueprint(page_nsko.nsko_page)
 def main_page():
     alg = {
         'Раскраска графа.': '/true_chromatic',
-        'ТЕСТ_НСКО.': '/nsko_test',
+        # 'ТЕСТ_НСКО.': '/nsko_test',
         'НСКО.': '/nsko',
     }
     return render_template(
