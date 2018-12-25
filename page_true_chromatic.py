@@ -91,7 +91,7 @@ def true_chromatic():
     return render_template(
         'true_chromatic.html',
         title='Раскраска графа.',
-        path_to_examle='static/true_chromatic/img/example_handle_entered.png',
+        path_to_examle='static/true_chromatic/example_handle_entered.png',
         form=form
     )
 
