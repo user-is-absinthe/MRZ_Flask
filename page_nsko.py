@@ -1,6 +1,7 @@
 import flask
 import forms
 import time
+import os
 
 from methods import func_nsko
 from methods import func_load_from_file
@@ -41,7 +42,7 @@ def nsko_entered():
         return flask.redirect('/nsko_view')
 
     # other path
-    print(form.path_to_data.data)
+    # print(form.path_to_data.data)
     if form.path_to_data.data is not None:
         HANDLED_PATH = True
         return flask.redirect('/nsko_view')
@@ -66,6 +67,7 @@ def nsko_result():
     global GENERATED, HANDLED, HANDLED_PATH, PATH
 
     path_to_data = PATH + '/static/nsko/input_file.txt'
+
     if GENERATED:
         path_to_data = PATH + '/static/nsko/generated.txt'
         GENERATED = False
@@ -74,11 +76,16 @@ def nsko_result():
         HANDLED = False
     elif not isinstance(HANDLED_PATH, bool):
         path_to_data = HANDLED_PATH
+        if str(path_to_data) == '':
+            flask.flash('Загружен пример.')
+            path_to_data = PATH + '/static/nsko/input_file.txt'
         HANDLED_PATH = False
 
     array_of_x, array_of_classes = func_load_from_file.load_for_nsko(path_to_data)
+    # print(array_of_x, array_of_classes)
 
     answered = func_nsko.additional_constructions(ar_x=array_of_x, ar_cl=array_of_classes)
+    # print(answered)
 
     answered_to_html = str(answered)
     answered_to_html = answered_to_html.replace('[[', '[')
@@ -86,16 +93,33 @@ def nsko_result():
 
     path_to_img = None
     if len(array_of_x[0]) == 3:
+        path_to_img_dir = PATH + '/static/nsko/img/temp/'
 
-        path_to_img = PATH + '/static/nsko/img/temp/nsko_{}'.format(str(time.time()).replace('.', '')) + '.png'
-        func_nsko.plot_nsko()
-        pass
+        files_to_remove = os.listdir(path_to_img_dir)
+        for filename in files_to_remove:
+            os.remove(path_to_img_dir + filename)
+
+        temp_name = str(time.time()).replace('.', '')
+        path_to_img_save = path_to_img_dir + '/nsko_{}'.format(temp_name) + '.png'
+        func_nsko.plot_nsko(path_to_img_save, array_of_x, answered)
+        path_to_img = 'static/nsko/img/temp/nsko_' + temp_name + '.png'
+        'static/nsko/img/temp/nsko_15457466688663812.png'
+
+    first_class = list()
+    second_class = list()
+    for vector in array_of_x:
+        if vector[-1] == 1:
+            first_class.append(vector[:-1])
+        else:
+            second_class.append([-1 * i for i in vector[:-1]])
 
     return flask.render_template(
         'nsko_view.html',
         title='Результат НСКО.',
         answered=answered_to_html,
-        column=1,
-        lines=1,
-        matrix=[[1]]
+        lines_1=len(first_class),
+        lines_2=len(second_class),
+        first_class=first_class,
+        second_class=second_class,
+        path_to_img=path_to_img
     )

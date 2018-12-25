@@ -16,7 +16,7 @@ def additional_constructions(ar_x, ar_cl):
     array_of_y = np.ones((1, len(ar_x))).transpose()
 
     for i in range(len(ar_x)):
-        ar_x[i].append(1 if ar_cl[i] == 0 else -1)
+        ar_x[i].append(1 if ar_cl[i] == 1 else -1)
 
     matrix_v = 0
     for i in range(len(ar_x)):
@@ -80,8 +80,11 @@ def plot_nsko(path, array_of_x, answered):
         list_y = [1 / answered[1] * (-1 * answered[2] - answered[0] * x) for x in list_x]
 
         pyplot.plot(list_x, list_y)
-        pyplot.savefig(path, transparent=True)
-        pyplot.clf()
+        if path == 1:
+            pyplot.show()
+        else:
+            pyplot.savefig(path, transparent=True)
+            pyplot.clf()
         return 0
     else:
         return 1
@@ -93,7 +96,7 @@ def my_split(arr, n):
 
 
 def generator(len_vectors=2, amount_vectors=4, path=None):
-    vectors = [list(np.random.rand(len_vectors)) for i in range(amount_vectors)]
+    vectors = [list(np.random.uniform(0, 100, len_vectors)) for i in range(amount_vectors)]
     for index, vector in enumerate(vectors):
         if index < amount_vectors / 2:
             vector.append(1)
@@ -140,12 +143,13 @@ if __name__ == '__main__':
     # print(to_test)
 
     # path = '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/nsko/test.txt'
-    path_nnn = '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/nsko/input_file.txt'
+    # path_nnn = '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/nsko/input_file.txt'
+    path_nnn = '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/nsko/generated.txt'
     # generator(
     #     amount_of_vectors=4,
     #     len_vectors=2,
     #     amount_of_classes=2,
     #     path=path
     # )
-    # print(nsko(path_to_data=path, path_to_img=1))
-    print(generator())
+    print(nsko(path_to_data=path_nnn, path_to_img=1))
+    # print(generator())

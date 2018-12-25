@@ -9,7 +9,7 @@ def load_for_nsko(path):
 
         # print(lines, '\n', array_classes)
         # lines = [[int(number) for number in line] for line in lines]
-        lines = [[float(number) for number in line] for line in lines]
+        lines = [[float(number.replace(',', '').strip()) for number in line] for line in lines]
         array_classes = list(map(int, array_classes))
         return lines, array_classes
 
