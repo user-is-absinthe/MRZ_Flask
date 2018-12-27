@@ -13,9 +13,16 @@ class TrueChromaticForm(FlaskForm):
 
 
 class NskoForm(FlaskForm):
-    # count_of_classes = wtforms.IntegerField('Введите количество классов.')
     count_of_vectors = wtforms.IntegerField('Введите количество векторов.')
     len_vectors = wtforms.IntegerField('Введите длину векторов.')
+    handle_entered = wtforms.StringField('Введите данные вручную.')
+    path_to_data = wtforms.StringField('Введите путь до файла с данными.')
+    do_this = wtforms.SubmitField('Получить ответ.')
+
+
+class MetricsForm(FlaskForm):
+    len_vectors = wtforms.IntegerField('Введите длину векторов.')
+    count_of_b_vector = wtforms.IntegerField('Введите количество строк матрицы.')
     handle_entered = wtforms.StringField('Введите данные вручную.')
     path_to_data = wtforms.StringField('Введите путь до файла с данными.')
     do_this = wtforms.SubmitField('Получить ответ.')

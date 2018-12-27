@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+    li {
+        list-style-type: none;
+    }
+
+    TD, TH {
+        padding: 3px; /* Поля вокруг содержимого таблицы */
+        border: 3px solid black; /* Параметры рамки */
+    }
+    </style>
+    <h1>Отображение данных:</h1>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapse_matrix" role="button" aria-expanded="false" aria-controls="collapseExample">
+         Входные данные.
+    </a>
+    <div class="collapse" id="collapse_matrix">
+    <br>
+    <div class="container">
+        <h5>P = {{ p }}</h5>
+        <h5>Вектор А = {{ vec_a }}</h5>
+        {% if matrix_flag %}
+        <div>
+            <h5>Матрица В:</h5>
+            <br>
+            <table class="table">
+{#            <thead>#}
+{#            <tr><th></th></tr>#}
+{#            </thead>#}
+            <tbody>
+            {% for index_1 in range(lines) %}
+            <tr>
+                {% for number in matrix[index_1] %}
+                    <td> {{ number }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div>
+            <h5>Вектор В = {{ vec_b }}</h5>
+        </div>
+        {% endif %}
+    </div>
+    </div><br>
+    <br>
+
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapse_answered" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Расстояния:
+    </a>
+
+    <div class="collapse" id="collapse_answered">
+    <ul>
+    <br>
+    {% for name, ans in answ_dict %}
+        <li> {{ name }} {{ ans }}</li>
+    {% endfor %}
+    </ul>
+    </div>
+    <br>
+    <br>
+
+    <h4><a href="metrics">Назад.</a> </h4>
+{% endblock %}
+</html>

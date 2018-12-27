@@ -109,40 +109,60 @@ def all_metrics(p_eqval, vector_b, vector_a):
 
     if isinstance(vector_a[0], numpy.ndarray):
         # a - matrix
-        answered['to_centr_evklid_lenght'] = to_centr(vector_a, vector_b, 'evklid_lenght')
-        answered['to_centr_mannhetn_lenght'] = to_centr(vector_a, vector_b, 'mannhetn_lenght')
-        answered['to_centr_rem_metr'] = to_centr(vector_a, vector_b, 'rem_metr')
-        answered['to_centr_minkovskiy'] = to_centr(vector_a, vector_b, 'minkovskiy', p_eqval)
-        answered['to_centr_camber_metr'] = to_centr(vector_a, vector_b, 'camber_metr')
+        answered['Евклидова метрика (до эталонного образца): '] = to_centr(vector_a, vector_b, 'evklid_lenght')
+        answered['Манхетнская метрика (до эталонного образца): '] = to_centr(vector_a, vector_b, 'mannhetn_lenght')
+        answered['Метрика Рема (до эталонного образца): '] = to_centr(vector_a, vector_b, 'rem_metr')
+        answered['Метрика Миньковского (до эталонного образца): '] = to_centr(vector_a, vector_b, 'minkovskiy', p_eqval)
+        answered['Метрика Камбера (до эталонного образца): '] = to_centr(vector_a, vector_b, 'camber_metr')
 
-        answered['nearly_evklid_lenght'] = nearly(vector_a, vector_b, 'evklid_lenght')
-        answered['nearly_mannhetn_lenght'] = nearly(vector_a, vector_b, 'mannhetn_lenght')
-        answered['nearly_rem_metr'] = nearly(vector_a, vector_b, 'rem_metr')
-        answered['nearly_minkovskiy'] = nearly(vector_a, vector_b, 'minkovskiy', p_eqval)
-        answered['nearly_camber_metr'] = nearly(vector_a, vector_b, 'camber_metr')
+        answered['Евклидова метрика (расстояние ближайщего соседа)'] = nearly(vector_a, vector_b, 'evklid_lenght')
+        answered['Манхетнская метрика (расстояние ближайщего соседа): '] = nearly(vector_a, vector_b, 'mannhetn_lenght')
+        answered['Метрика Рема (расстояние ближайщего соседа): '] = nearly(vector_a, vector_b, 'rem_metr')
+        answered['Метрика Миньковского (расстояние ближайщего соседа): '] = nearly(
+            vector_a,
+            vector_b,
+            'minkovskiy',
+            p_eqval
+        )
+        answered['Метрика Камбера (расстояние ближайщего соседа): '] = nearly(vector_a, vector_b, 'camber_metr')
     else:
         # a - vector
-        answered['evklid_lenght'] = evklid_lenght(vector_a, vector_b)
-        answered['mannhetn_lenght'] = mannhetn_lenght(vector_a, vector_b)
-        answered['rem_metr'] = rem_metr(vector_a, vector_b)
-        answered['minkovskiy'] = minkovskiy(vector_a, vector_b, p_eqval)
-        answered['camber_metr'] = camber_metr(vector_a, vector_b)
+        answered['Евклидова метрика: '] = evklid_lenght(vector_a, vector_b)
+        answered['Манхетнская метрика: '] = mannhetn_lenght(vector_a, vector_b)
+        answered['Метрика Рема: '] = rem_metr(vector_a, vector_b)
+        answered['Метрика Миньковского: '] = minkovskiy(vector_a, vector_b, p_eqval)
+        answered['Метрика Камбера: '] = camber_metr(vector_a, vector_b)
 
     return answered
 
 
-# def read_data(filename='./input_file/data_lenght.txt'):
-#     file = open(filename, 'r')
-#     data = file.read()
-#     data = data.split('\n')
-#     if data[-1] == '':
-#         data.pop(-1)
-#     ar = data[0].split(' ')
-#     br = data[1].split(' ')
-#     pr = data[2]
-#     matrixr = data[3:]
-#     file.close()
-#     return ar, br, pr, matrixr
+def generator(len_vectors, lines_in_matrix, path=None):
+    p = numpy.random.uniform(0, 100)
+    vector_a = list(numpy.random.uniform(0, 100, len_vectors))
+    if lines_in_matrix == 1:
+        vector_b = list(numpy.random.uniform(0, 100, len_vectors))
+    else:
+        vector_b = [numpy.random.uniform(0, 100, len_vectors) for i in range(lines_in_matrix)]
+
+    if path is not None:
+        save_data(p, vector_a, vector_b, path)
+    else:
+        return p, vector_a, vector_b
+    pass
+
+
+def save_data(p, vector_a, vector_b, path):
+    with open(path, 'w') as file:
+        file.write(str(p) + '\n')
+        write_vector_a = str(vector_a).replace('[', '').replace(']', '')
+        file.write(write_vector_a + '\n')
+        if isinstance(vector_b[0], numpy.ndarray):
+            for line in vector_b:
+                write_line = str(list(line)).replace('[', '').replace(']', '')
+                file.write(write_line + '\n')
+        else:
+            write_vector_b = str(vector_b).replace('[', '').replace(']', '')
+            file.write(write_vector_b + '\n')
 
 
 def read_data(path):
@@ -195,4 +215,5 @@ if __name__ == '__main__':
     # print(nearly(matrix, b, 'minkovskiy', p))
     # print(nearly(matrix, b, 'camber_metr'))
 
-    print(read_data('/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/metrics/test.txt'))
+    # print(read_data('/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/metrics/test.txt'))
+    generator(3, 4, '/Users/owl/Pycharm/PycharmProjects/MRZ_Flask/static/metrics/test_1.txt')

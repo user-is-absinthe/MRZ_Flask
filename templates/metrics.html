@@ -4,7 +4,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Ввод данных для алгоритма НСКО:</h1>
+    <h1>Ввод данных для метрик:</h1>
     <form action="" method="post" novalidate>
         <a class="btn btn-primary" data-toggle="collapse" href="#collapse_auto" role="button" aria-expanded="false" aria-controls="collapseExample">
             Сгенерировать автоматически?
@@ -14,7 +14,9 @@
             Введите длину векторов: {{ form.len_vectors(size=3) }}
         </p>
         <p>
-            Введите число строк матрицы: {{ form.count_of_vectors(size=3) }}
+            Введите количество векторов в матрице: {{ form.count_of_b_vector(size=3) }}
+            <br>
+            Если нужно посчитать растояние от вектора до вектора, введите 1.
         </p>
         </div>
         <br>

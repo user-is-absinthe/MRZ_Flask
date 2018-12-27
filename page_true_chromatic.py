@@ -6,7 +6,7 @@ from flask import render_template
 from flask import redirect
 from flask import Blueprint
 
-import forms
+import my_forms
 from methods import func_true_chromatic
 from methods import func_read_from_csv as csv
 import func_find_path
@@ -31,7 +31,7 @@ if not os.path.exists(temp_path + '/static/true_chromatic/img'):
 @true_chromatic_page.route('/true_chromatic', methods=['GET', 'POST'])
 def true_chromatic():
     global CHROMATIC_PATH_TO_MATRIX, CHROMATIC_HANDLE_MATRIX
-    form = forms.TrueChromaticForm()
+    form = my_forms.TrueChromaticForm()
     matrix_size_i = -98563
     # ввод из файла
     if form.path_to_another_matrix.data is not None and not form.path_to_another_matrix.data == '':
@@ -56,7 +56,7 @@ def true_chromatic():
             flash('Введено неверное значение количества вершин.')
         if 0 < matrix_size_i < 65:
             # print(matrix_size_i)
-            flash('Количество вершин графа: {}.'.format(matrix_size_i))
+            # flash('Количество вершин графа: {}.'.format(matrix_size_i))
             # print(form.generate_matrix.data)
 
             # авто генерация

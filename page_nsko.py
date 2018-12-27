@@ -1,5 +1,5 @@
 import flask
-import forms
+import my_forms
 import time
 import os
 
@@ -31,7 +31,7 @@ def test_f():
 @nsko_page.route('/nsko', methods=['GET', 'POST'])
 def nsko_entered():
     global GENERATED, HANDLED, HANDLED_PATH, PATH
-    form = forms.NskoForm()
+    form = my_forms.NskoForm()
 
     # generated
     if (form.len_vectors.data is not None) != (form.count_of_vectors.data is not None):
@@ -44,7 +44,7 @@ def nsko_entered():
     # other path
     # print(form.path_to_data.data)
     if form.path_to_data.data is not None:
-        HANDLED_PATH = True
+        HANDLED_PATH = form.path_to_data.data
         return flask.redirect('/nsko_view')
 
     # handle entered
