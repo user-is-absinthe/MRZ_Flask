@@ -107,6 +107,8 @@ def metrics_exit():
         if numpy.isnan(value):
             answered[key] = 'Метрика не определена'
 
+    # TODO: exit table for matrix
+
     return flask.render_template(
         'metrics_view.html',
         title='Расстояния.',
